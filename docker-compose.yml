@@ -1,0 +1,30 @@
+version: "3.8"
+
+# Container da creare (db, web)
+services:
+  db:
+    image: mysql:5.7 # immagine ufficilae di MySQL
+    container_name: vulnerable_db
+    restart: always # Il container si riavvia automaticamente se in blocco
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: vulnerable_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./web/init.sql:/docker-entrypoint-initdb.d/init.sql # quando il container parte la prima volta, esegui il file init.sql
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: php_web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web:/var/www/html # tutto ciò che c’è nella cartella ./web verrà messo nella cartella dove Apache cerca i file (/var/www/html).
+    depends_on:
+      - db # Docker fa paertire prima database
+
