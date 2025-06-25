@@ -89,19 +89,16 @@ $loginData = $_SESSION['login_data'] ?? [];
         echo "<p class='fail'>❌ Login fallito: username o password errati.</p>";
     }
     if (!empty($loginData)) {
-        echo "<h3>Dati esfiltrati dalla query di login:</h3>";
         echo "<table>";
 
-        // Dati (senza intestazioni)
-        foreach ($loginData as $row) {
-            echo "<tr>";
-            foreach ($row as $cell) {
-                echo "<td>" . htmlspecialchars($cell) . "</td>";
+        if (!empty($loginData)) {
+            echo "<h3>Benvenuto:</h3><ul>";
+            foreach ($loginData as $row) {
+                echo "<li>" . htmlspecialchars($row['username']) . "</li>";
             }
-            echo "</tr>";
+            echo "</ul>";
         }
 
-        echo "</table>";
     }
 
     ?>
