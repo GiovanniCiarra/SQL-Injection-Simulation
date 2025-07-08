@@ -1,4 +1,7 @@
 <?php
+/* Viene gestito il login dell'utente, assegnando i valori a username e password, 
+    eseguendo le query sql necessarie e reindirizzando l'utente alla pagina result.php */
+
 session_start();
 include 'db.php';
 
@@ -6,13 +9,15 @@ include 'db.php';
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-
+// Query non parametrizzata
 $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
 $_SESSION['query'] = $query;
 
+// Vengono inizializzate le variabili per il successo del login e i dati restituiti dalla query
 $_SESSION['login_success'] = false;
 $_SESSION['login_data'] = [];
 
+// Viene utilizzato multi_query per permettere attacchi Piggybacked
 if ($conn->multi_query($query)) {
     do {
         if ($result = $conn->store_result()) {

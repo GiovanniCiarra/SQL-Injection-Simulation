@@ -1,4 +1,8 @@
 <?php
+/* Rappresenta la pagina in cui vengono mostrati i risultati del login.
+    Per fini didattici, in questa pagina viene mostrata anche la query sql che è stata eseguita
+    e lo stato del database */
+
 session_start();
 include 'db.php';
 
@@ -88,6 +92,7 @@ $loginData = $_SESSION['login_data'] ?? [];
     } else {
         echo "<p class='fail'>❌ Login fallito: username o password errati.</p>";
     }
+    // Se ci sono dei dati restituiti dalla query, viene mostrato lo/gli username
     if (!empty($loginData)) {
         echo "<table>";
 
@@ -98,11 +103,11 @@ $loginData = $_SESSION['login_data'] ?? [];
             }
             echo "</ul>";
         }
-
     }
 
     ?>
 
+    <!-- Viene mostrato lo stato attuale del database -->
     <div class='section-title'>Stato attuale del database (tabella <code>users</code>):</div>
     <?php
     $allUsers = $conn->query("SELECT * FROM users");
@@ -119,9 +124,11 @@ $loginData = $_SESSION['login_data'] ?? [];
             <?php endwhile; ?>
         </table>
     <?php else: ?>
+        <!-- Se non ci sono risultati, viene mostrata una stringa -->
         <p><em>La tabella <code>users</code> è vuota.</em></p>
     <?php endif; ?>
 
+    <!-- Per tornare alla pagina di login -->
     <a class='back-link' href='index.php'> Torna al login</a>
 </div>
 </body>

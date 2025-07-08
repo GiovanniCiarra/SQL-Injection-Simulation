@@ -1,3 +1,5 @@
+/* Questo script serve ad inizializzare il db, assegnando valori di default */
+
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (

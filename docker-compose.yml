@@ -1,6 +1,8 @@
+# File Docker-compose per avviare il tutto utilizzando il comando 'docker compose up'
+
 version: "3.8"
 
-# Container da creare (db, web)
+# Vengono creati due container (db, web)
 services:
   db:
     image: mysql:5.7 # immagine ufficilae di MySQL
@@ -14,7 +16,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./web/init.sql:/docker-entrypoint-initdb.d/init.sql # quando il container parte la prima volta, esegui il file init.sql
+      - ./web/init.sql:/docker-entrypoint-initdb.d/init.sql # quando il container parte la prima volta, esegue il file init.sql
 
   web:
     build:
@@ -26,5 +28,5 @@ services:
     volumes:
       - ./web:/var/www/html # tutto ciò che c’è nella cartella ./web verrà messo nella cartella dove Apache cerca i file (/var/www/html).
     depends_on:
-      - db # Docker fa paertire prima database
+      - db # Docker fa partire prima database
 

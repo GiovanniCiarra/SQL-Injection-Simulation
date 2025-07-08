@@ -1,7 +1,10 @@
+<!-- Rappresenta la pagina di login, in cui l'utente può inserire username e password e dove 
+     un attaccante può iniettare del codice malevolo -->
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login SQL Injection Demo</title>
+    <title>Login SQL Injection</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
